@@ -8,6 +8,13 @@ import redmine.model.Generatable;
  */
 public class User implements Generatable<User> {
 
+    // generateRandomString(40, "0123456789abcdef");
+
+    public String getApiKey() {
+        //TODO Изменить на генерацию ключа API
+        return "f02b2da01a468c4116be898911481d1b928c15f9";
+    }
+
     @Override
     public User read() {
         return null;

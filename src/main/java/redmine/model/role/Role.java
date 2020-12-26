@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import redmine.db.requests.RoleRequests;
 import redmine.model.Generatable;
 import redmine.utils.StringGenerators;
@@ -14,6 +15,7 @@ import redmine.utils.StringGenerators;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
+@Accessors(chain = true)
 public class Role implements Generatable<Role> {
     private Integer id;
     private Integer position = 1;
