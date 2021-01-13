@@ -3,3 +3,5 @@
 /.idea/
 /target/
 /automation.iml
+/src/main/resources/chromedriver.exe
+/src/main/resources/geckodriver.exe

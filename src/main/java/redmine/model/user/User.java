@@ -1,12 +1,18 @@
 package redmine.model.user;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
 import redmine.db.requests.UserRequests;
 import redmine.model.Generatable;
 
 /**
  * Класс-модель пользователя в системе.
  */
+@Data
+@Accessors(chain = true)
 public class User implements Generatable<User> {
+    private String login = "admin";
+    private String password = "admin123";
 
     // generateRandomString(40, "0123456789abcdef");
 
