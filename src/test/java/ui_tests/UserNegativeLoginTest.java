@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import io.qameta.allure.Description;
 import redmine.managers.Manager;
 import redmine.model.user.User;
 import redmine.ui.pages.LoginPage;
@@ -26,7 +27,8 @@ public class UserNegativeLoginTest {
     }
 
 
-    @Test
+    @Test(description = "Негативный логин (неправильный пароль)")
+    @Description("Вход под учетной записью пользователя с неправильным паролем")
     public void userNegativeLoginTest() {
 
         getPage(LoginPage.class).login(user.getLogin(), user.getPassword());

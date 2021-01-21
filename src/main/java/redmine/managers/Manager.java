@@ -17,6 +17,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.collect.ImmutableMap;
 
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 import lombok.SneakyThrows;
 import redmine.Property;
 import redmine.db.DataBaseConnection;
@@ -60,6 +62,7 @@ public class Manager {
         return wait;
     }
 
+    @Attachment(value = "screenshot")
     public static byte[] takeScreenshot() {
         return ((TakesScreenshot) driver()).getScreenshotAs(OutputType.BYTES);
     }
@@ -72,6 +75,7 @@ public class Manager {
     /**
      * Открыть страницу Redmine
      */
+    @Step("Открыть страницу {0}")
     public static void openPage(String uri) {
         driver().get(Property.getStringProperty("ui.url") + uri);
     }

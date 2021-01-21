@@ -4,8 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import io.qameta.allure.Description;
 import redmine.managers.Manager;
 import redmine.model.user.User;
 import redmine.ui.pages.HeaderPage;
@@ -36,7 +38,9 @@ public class AdminPositiveLoginTest {
     }
 
 
-    @Test(dataProvider = "usersProvider")
+    @Test(dataProvider = "usersProvider", description = "Позитивный логин")
+    @Description("Вход под учетной записью пользователя")
+    @Parameters(value = {"Логин", "Пароль"})
     public void adminPositiveLoginTest(String login, String password) {
 
         getPage(LoginPage.class).login(user.getLogin(), user.getPassword());

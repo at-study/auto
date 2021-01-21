@@ -1,5 +1,7 @@
 package redmine.model;
 
+import io.qameta.allure.Step;
+
 public interface Generatable<T> {
 
     T read();
@@ -8,6 +10,7 @@ public interface Generatable<T> {
 
     T create();
 
+    @Step("Сгенерирована сущность")
     default T generate() {
         if (read() != null) {
             return update();

@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import io.qameta.allure.Description;
 import redmine.managers.Manager;
 import redmine.model.user.User;
 import redmine.ui.pages.HeaderPage;
@@ -27,10 +28,11 @@ public class UserPositiveLoginTest {
     }
 
 
-    @Test
+    @Test(description = "Позитивный логин пользователем")
+    @Description("Вход под учетной записью пользователя")
     public void userPositiveLoginTest() {
 
-        new LoginPage().login(user.getLogin(), user.getPassword());
+        getPage(LoginPage.class).login(user.getLogin(), user.getPassword());
 
         Assert.assertEquals(getPage(HeaderPage.class).loggedAs(), "Вошли как " + user.getLogin());
     }

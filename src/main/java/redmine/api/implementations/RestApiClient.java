@@ -3,6 +3,8 @@ package redmine.api.implementations;
 import java.util.Map;
 import java.util.Objects;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.specification.RequestSpecification;
@@ -24,6 +26,7 @@ public class RestApiClient implements ApiClient {
     }
 
     @Override
+    @Step("Выполнение Rest-запроса")
     public Response executeRequest(Request request) {
         RequestSpecification specification = given();
         Map<String, String> headers = request.getHeaders();
@@ -40,7 +43,14 @@ public class RestApiClient implements ApiClient {
         Method method = Method.valueOf(request.getMethod().name());
         io.restassured.response.Response response = specification.log().all().request(method);
         response.then().log().all();
-        return new RestResponse(response);
+        Response restResponse = new RestResponse(response);
+        addAttachments(request, restResponse);
+        return restResponse;
+    }
+
+    private void addAttachments(Request request, Response response) {
+        Allure.addAttachment("Запрос", request.toString());
+        Allure.addAttachment("Ответ", response.toString());
     }
 
 }

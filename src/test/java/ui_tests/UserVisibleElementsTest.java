@@ -9,6 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import io.qameta.allure.Description;
 import redmine.managers.Manager;
 import redmine.model.user.User;
 import redmine.ui.pages.HeaderPage;
@@ -34,7 +35,8 @@ public class UserVisibleElementsTest {
     }
 
 
-    @Test
+    @Test(description = "Проверка видимости элементов \"Администрирование\", \"Проекты\". Логин обычным пользователем")
+    @Description("Проверка видимости элементов \"Администрирование\", \"Проекты\". Логин обычным пользователем")
     public void userPositiveLoginTest() throws IOException {
 
         getPage(LoginPage.class).login(user.getLogin(), user.getPassword());

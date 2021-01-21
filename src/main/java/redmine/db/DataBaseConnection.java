@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import lombok.SneakyThrows;
 
 import static redmine.Property.getIntegerProperty;
@@ -37,6 +39,7 @@ public class DataBaseConnection {
     }
 
     @SneakyThrows
+    @Step("Подключение к базе данных")
     private void connect() {
         Class.forName("org.postgresql.Driver");
         String url = String.format("jdbc:postgresql://%s:%d/%s?user=%s&password=%s", dbHost, dbPort, dbName, dbUser, dbPass);
@@ -51,7 +54,9 @@ public class DataBaseConnection {
      */
 
     @SneakyThrows
+    @Step("Выполнение SQL запроса")
     public List<Map<String, Object>> executeQuery(String query) {
+        Allure.addAttachment("query", query);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
         int count = resultSet.getMetaData().getColumnCount();
@@ -69,6 +74,7 @@ public class DataBaseConnection {
             }
             result.add(columnData);
         }
+        Allure.addAttachment("response", result.toString());
         return result;
     }
 
@@ -80,12 +86,14 @@ public class DataBaseConnection {
      * @return данные - результат запрос
      */
     @SneakyThrows
+    @Step("Выполнение SQL запроса")
     public List<Map<String, Object>> executePreparedQuery(String query, Object... parameters) {
         PreparedStatement statement = connection.prepareStatement(query);
         int index = 1;
         for (Object object : parameters) {
             statement.setObject(index++, object);
         }
+        Allure.addAttachment("query", statement.toString());
         ResultSet resultSet = statement.executeQuery();
         int count = resultSet.getMetaData().getColumnCount();
         List<String> columnNames = new ArrayList<>();
@@ -102,6 +110,7 @@ public class DataBaseConnection {
             }
             result.add(columnData);
         }
+        Allure.addAttachment("response", result.toString());
         return result;
     }
 }
