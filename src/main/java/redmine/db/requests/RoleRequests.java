@@ -2,6 +2,7 @@ package redmine.db.requests;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import redmine.managers.Manager;
@@ -51,6 +52,7 @@ public class RoleRequests {
     }
 
     public static Role addRole(Role role) {
+        Objects.requireNonNull(role.getPosition(), "У пользователя не может быть position == null");
         String query = "INSERT INTO public.roles\n" +
                 "(id, \"name\", \"position\", assignable, builtin, permissions, issues_visibility, users_visibility, time_entries_visibility, all_roles_managed, settings)\n" +
                 "VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;\n";

@@ -13,22 +13,24 @@ import redmine.model.dto.RoleDto;
 import redmine.model.role.Role;
 import redmine.model.user.User;
 
-import static org.testng.Assert.assertEquals;
+import static redmine.utils.Asserts.assertEquals;
+
 
 public class RoleTest {
 
     private User user;
     private Role role;
+    private ApiClient apiClient;
 
     @BeforeMethod
     public void prepareFixtures() {
         user = new User().generate();
         role = new Role().generate();
+        apiClient = new RestApiClient(user);
     }
 
     @Test
     public void getRoleByIdTest() {
-        ApiClient apiClient = new RestApiClient(user);
         String uri = String.format("roles/%d.json", role.getId());
         Request request = new RestRequest(uri, HttpMethods.GET, null, null, null);
         Response response = apiClient.executeRequest(request);

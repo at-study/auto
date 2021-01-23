@@ -20,7 +20,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -96,7 +95,8 @@
                         <dataproviderthreadcount>1</dataproviderthreadcount>
                         <parallel>methods</parallel>
                     </systemPropertyVariables>
-
+                    <forkCount>1</forkCount>
+                    <parallel>methods</parallel>
                     <useSystemClassLoader>false</useSystemClassLoader>
                     <testFailureIgnore>true</testFailureIgnore>
                     <reuseForks>false</reuseForks>

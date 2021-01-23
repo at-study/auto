@@ -10,12 +10,13 @@ import io.restassured.http.Method;
 import io.restassured.response.Response;
 import redmine.model.dto.UserCreationError;
 import redmine.model.dto.UserDto;
-import redmine.utils.gson.GsonHelper;
+import redmine.model.dto.UserInfo;
 
 import static io.restassured.RestAssured.given;
 import static redmine.utils.StringGenerators.randomEmail;
 import static redmine.utils.StringGenerators.randomEnglishLowerString;
 import static redmine.utils.StringGenerators.randomEnglishString;
+import static redmine.utils.gson.GsonHelper.getGson;
 
 public class MyFirstRestTest {
 
@@ -37,15 +38,17 @@ public class MyFirstRestTest {
         String firstName = randomEnglishString(12);
         String lastName = randomEnglishString(12);
         String mail = randomEmail();
-        String body = String.format("{\n" +
-                "    \"user\": {\n" +
-                "        \"login\": \"%s\",\n" +
-                "        \"firstname\": \"%s\",\n" +
-                "        \"lastname\": \"%s\",\n" +
-                "        \"mail\": \"%s\",\n" +
-                "        \"password\": \"1qaz@WSX\" \n" +
-                "    }\n" +
-                "}", login, firstName, lastName, mail);
+
+        UserDto user = new UserDto()
+                .setUser(new UserInfo()
+                        .setLogin(login)
+                        .setFirstname(firstName)
+                        .setLastname(lastName)
+                        .setMail(mail)
+                        .setPassword("1qaz@WSX")
+                );
+        String body = getGson().toJson(user);
+
         Response response = given().baseUri("http://edu-at.dfu.i-teco.ru/")
                 .contentType(ContentType.JSON)
                 .header("X-Redmine-API-Key", apiKey)
@@ -55,7 +58,7 @@ public class MyFirstRestTest {
         Assert.assertEquals(response.getStatusCode(), 201);
         String responseBody = response.getBody().asString();
 
-        UserDto createdUser = GsonHelper.getGson().fromJson(responseBody, UserDto.class);
+        UserDto createdUser = getGson().fromJson(responseBody, UserDto.class);
 
         Assert.assertEquals(createdUser.getUser().getLogin(), login);
         Assert.assertEquals(createdUser.getUser().getFirstname(), firstName);
@@ -95,7 +98,7 @@ public class MyFirstRestTest {
 
         Assert.assertEquals(response.getStatusCode(), 422);
 
-        UserCreationError errors = GsonHelper.getGson().fromJson(response.getBody().asString(), UserCreationError.class);
+        UserCreationError errors = getGson().fromJson(response.getBody().asString(), UserCreationError.class);
 
         Assert.assertEquals(errors.getErrors().size(), 1);
         Assert.assertEquals(errors.getErrors().get(0), "Пароль недостаточной длины (не может быть меньше 8 символа)");
