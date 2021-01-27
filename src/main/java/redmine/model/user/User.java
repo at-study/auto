@@ -13,7 +13,8 @@ import redmine.model.Generatable;
 public class User implements Generatable<User> {
     private String login = "admin";
     private String password = "admin123";
-
+    private Boolean admin = false;
+    private Integer status = 1;
     // generateRandomString(40, "0123456789abcdef");
 
     public String getApiKey() {

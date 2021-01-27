@@ -33,6 +33,7 @@ public class Manager {
     private static WebDriver driver;
     private static WebDriverWait wait;
 
+
     /**
      * Получить экземпляр драйвера (ленивая инициализация)
      *
