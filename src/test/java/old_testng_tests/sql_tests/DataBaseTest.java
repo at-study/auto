@@ -49,11 +49,11 @@ public class DataBaseTest {
         Role role = new Role();
         role.setName("Пользователь1");
 
-        Role dataBaseRole = RoleRequests.getRole(role);
+        Role dataBaseRole = RoleRequests.getRoleByName(role.getName());
         Assert.assertEquals(dataBaseRole.getId().intValue(), 11);
 
         role.setId(15);
-        Role dataBaseRole2 = RoleRequests.getRole(role);
+        Role dataBaseRole2 = RoleRequests.getRoleById(role.getId());
         Assert.assertEquals(dataBaseRole2.getName(), "Новая автотестовая роль");
     }
 

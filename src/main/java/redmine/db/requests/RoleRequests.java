@@ -38,17 +38,16 @@ public class RoleRequests {
                 .collect(Collectors.toList());
     }
 
-    public static Role getRole(Role objectRole) {
-        return getAllRoles().stream()
-                .filter(role -> {
-                    if (objectRole.getId() == null) {
-                        return objectRole.getName().equals(role.getName());
-                    } else {
-                        return (objectRole.getId().equals(role.getId()));
-                    }
-                })
-                .findFirst()
-                .orElse(null);
+    public static Role getRoleById(Integer id) {
+        String query = "SELECT * FROM roles WHERE id = ?";
+        // Из результата запроса получить 1ую запись, собрать ее в Role и вернуть.
+        return null;
+    }
+
+    public static Role getRoleByName(String name) {
+        String query = "SELECT * FROM roles WHERE name = ?";
+        // Из результата запроса получить 1ую запись, собрать ее в Role и вернуть.
+        return null;
     }
 
     public static Role addRole(Role role) {

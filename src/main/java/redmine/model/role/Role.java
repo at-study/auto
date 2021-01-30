@@ -43,8 +43,9 @@ public class Role implements Generatable<Role> {
 
     @Override
     public Role read() {
-        Role role = RoleRequests.getRole(this);
-        return role;
+        return id == null
+                ? RoleRequests.getRoleByName(name)
+                : RoleRequests.getRoleById(id);
     }
 
     @Override

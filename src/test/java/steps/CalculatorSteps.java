@@ -12,11 +12,11 @@ public class CalculatorSteps {
         switch (operation) {
             case "сложить":
                 result = Calculator.sum(first, second);
-                Context.getStash().put(resultStashId, result);
+                Context.put(resultStashId, result);
                 break;
             case "разделить":
                 result = Calculator.divide(first, second);
-                Context.getStash().put(resultStashId, result);
+                Context.put(resultStashId, result);
                 break;
             default:
                 throw new IllegalArgumentException("Неизвестная операция для чисел: " + operation);
