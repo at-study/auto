@@ -30,9 +30,7 @@ public class Context {
     }
 
     public static void clearStash() {
-        if (stash.get() != null) {
-            stash.set(null);
-        }
+        stash.set(null);
     }
 
     @Step("Сущности в контексте автотеста")
