@@ -13,7 +13,7 @@ public class Property {
 
     static {
         try {
-            properties.load(new FileInputStream("src\\test\\resources\\local.properties"));
+            properties.load(new FileInputStream("src/test/resources/local.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
