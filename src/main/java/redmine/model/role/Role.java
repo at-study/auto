@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import redmine.db.requests.RoleRequests;
 import redmine.model.Generatable;
+import redmine.ui.pages.helpers.CucumberName;
 import redmine.utils.StringGenerators;
 
 @Getter
@@ -18,11 +19,20 @@ import redmine.utils.StringGenerators;
 @Accessors(chain = true)
 public class Role implements Generatable<Role> {
     private Integer id;
+
+    @CucumberName("Позиция")
     private Integer position = 1;
+
     private Integer builtin = 0;
+
+    @CucumberName("Наименование")
     private String name = "Auto" + StringGenerators.randomEnglishString(8);
+
     private Boolean assignable = true;
+
+    @CucumberName("Видимость задач")
     private IssuesVisibility issuesVisibility = IssuesVisibility.DEFAULT;
+
     private UsersVisibility usersVisibility = UsersVisibility.ALL;
     private RolePermissions permissions = new RolePermissions(new HashSet<>());
     private TimeEntriesVisibility timeEntriesVisibility = TimeEntriesVisibility.ALL;

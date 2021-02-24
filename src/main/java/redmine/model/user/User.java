@@ -19,7 +19,8 @@ public class User implements Generatable<User> {
 
     public String getApiKey() {
         //TODO Изменить на генерацию ключа API
-        return "f02b2da01a468c4116be898911481d1b928c15f9";
+        //  return "f02b2da01a468c4116be898911481d1b928c15f9"; aadmin
+        return "1f141a250bd38124d589f4dac5d9a23d970ff98a";
     }
 
     @Override

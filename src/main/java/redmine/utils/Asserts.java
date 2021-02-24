@@ -16,4 +16,13 @@ public class Asserts {
         Assert.assertNotEquals(actual, expected);
     }
 
+    @Step("Сравнение на истину утверждения: {0}")
+    public static void assertTrue(Boolean condition) {
+        Assert.assertTrue(condition);
+    }
+
+    @Step("Сравнение на ложь утверждения: {0}")
+    public static void assertFalse(Boolean condition) {
+        Assert.assertFalse(condition);
+    }
 }

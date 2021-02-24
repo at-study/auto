@@ -1,6 +1,7 @@
 package redmine.ui.pages.helpers;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -25,6 +26,18 @@ public class CucumberPageObjectHelper {
         return (WebElement) foundField.get(page);
     }
 
+    @SneakyThrows
+    public static List<WebElement> getElementsBy(String cucumberPageName, String cucumberFieldName) {
+        AbstractPage page = getPageBy(cucumberPageName);
+        Field foundField = Stream.of(page.getClass().getDeclaredFields())
+                .filter(field -> field.isAnnotationPresent(CucumberName.class))
+                .filter(field -> cucumberFieldName.equals(field.getAnnotation(CucumberName.class).value()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException(
+                        String.format("Нет аннотации @CucumberName(\"%s\") у поля", cucumberFieldName)));
+        foundField.setAccessible(true);
+        return (List<WebElement>) foundField.get(page);
+    }
 
     @SneakyThrows
     private static AbstractPage getPageBy(String cucumberPageName) {

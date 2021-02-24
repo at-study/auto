@@ -2,6 +2,7 @@ package steps;
 
 import java.util.Map;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -14,6 +15,7 @@ import redmine.model.role.Role;
 import redmine.model.role.RolePermissions;
 import redmine.model.role.TimeEntriesVisibility;
 import redmine.model.role.UsersVisibility;
+import redmine.ui.pages.ProjectsPage;
 import redmine.ui.pages.helpers.CucumberPageObjectHelper;
 import redmine.utils.Asserts;
 import redmine.utils.BrowserUtils;
@@ -107,5 +109,22 @@ public class AssertionSteps {
             Asserts.assertEquals(actualPermissions, expectedPermissions);
         }
 
+    }
+
+    @То("Отображается проект с названием {string} и описанием {string}")
+    public void assertProjectIsDisplayed(String projectName, String description) {
+        ProjectsPage page = new ProjectsPage();
+        Asserts.assertTrue(page.projectName(projectName).isDisplayed());
+        Asserts.assertEquals(page.projectDescription(projectName).getText(), description);
+    }
+
+    @То("Не отображается проект с названием {string}")
+    public void assertProjectIsNotDisplayed(String projectName) {
+        ProjectsPage page = new ProjectsPage();
+        try {
+            page.projectName(projectName).isDisplayed();
+            Assert.fail();
+        } catch (NoSuchElementException ignored) {
+        }
     }
 }
